@@ -1,0 +1,106 @@
+pipelines:
+  docker-golang-ide:
+    group: stcdev
+    label_template: "${git[:8]}"
+    materials:
+      git:
+        git: "git@git.ai-traders.com:stcdev/docker-golang-ide.git"
+        branch: master
+        blacklist:
+          - "**/*.gocd.yaml"
+          - "**/*.md"
+    stages:
+      - verify_version:
+          clean_workspace: true
+          jobs:
+            verify_version:
+              resources:
+                - docker
+                - small
+              tasks:
+               - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ./tasks verify_version
+      - test_confings_image:
+          clean_workspace: true
+          jobs:
+            test:
+              resources:
+                - docker
+                - small
+              tasks:
+               - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ./tasks build_cfg && ./tasks test_cfg
+      - build:
+          clean_workspace: true
+          jobs:
+            docker_image:
+              resources:
+                - docker
+                - small
+              artifacts:
+                - build:
+                    source: image/imagerc
+                    destination:
+              tasks:
+               - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ops_docker_push=true ./tasks build
+      - itest:
+          clean_workspace: true
+          jobs:
+            end_user:
+              resources:
+                - docker
+                - small
+              tasks:
+                - fetch:
+                    stage: build
+                    job: docker_image
+                    is_file: yes
+                    source: imagerc
+                    destination: image/
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks itest
+      - release:
+          clean_workspace: true
+          jobs:
+            code:
+              resources:
+                - docker
+                - small
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks release
+      - publish:
+          clean_workspace: true
+          jobs:
+            docker_image:
+              resources:
+                - docker
+                - small
+              tasks:
+                - fetch:
+                    stage: build
+                    job: docker_image
+                    is_file: yes
+                    source: imagerc
+                    destination: image/
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks publish

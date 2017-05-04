@@ -1,0 +1,22 @@
+FROM golang:1.7
+
+# For ide:
+# * entrypoint requires sudo and shadow
+# * git is needed to install ide image configs
+# * ca-certificated needed when running git clone to avoid this error:
+# fatal: unable to access 'https://github.com/ai-traders/ide.git/': Problem with the SSL CA cert (path? access rights?)
+RUN apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends sudo git ca-certificates && \
+  git clone --depth 1 -b 0.8.2 https://github.com/ai-traders/ide.git /tmp/ide_git && \
+  /tmp/ide_git/ide_image_scripts/src/install.sh && \
+  rm -r /tmp/ide_git && \
+  echo 'ide ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+COPY etc_ide.d/scripts/* /etc/ide.d/scripts/
+
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+CMD ["/bin/bash"]
+
+ARG this_image_tag
+ARG this_image_name
+ENV this_image_tag=${this_image_tag} this_image_name=${this_image_name}

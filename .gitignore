@@ -1,0 +1,13 @@
+**/imagerc*
+**/*.html
+
+docker-ops
+releaser
+Idefile.to_be_tested_configs
+Idefile.to_be_tested
+Idefile.example
+MANIFEST
+*.egg
+*.egg-info
+*.pyc
+*.tar.gz
