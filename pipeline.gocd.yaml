@@ -10,7 +10,7 @@ pipelines:
           - "**/*.gocd.yaml"
           - "**/*.md"
     stages:
-      - verify_version:
+      - validate:
           clean_workspace: true
           jobs:
             verify_version:
@@ -23,10 +23,7 @@ pipelines:
                   arguments:
                     - -c
                     - ./tasks verify_version
-      - test_confings_image:
-          clean_workspace: true
-          jobs:
-            test:
+            test_cfg:
               resources:
                 - docker
                 - small
