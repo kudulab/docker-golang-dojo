@@ -1,6 +1,6 @@
 # docker-golang-ide
 
-An IDE docker image to build golang. Based on ?official golang?
+An IDE docker image to build golang. Based on official golang image.
 
 ## Specification
 
@@ -23,7 +23,7 @@ It prefers to have one workspace for all your projects, while IDE says each proj
 
 The **Go-way** of working is by having Idefile at the root of many projects, that implies unversioned.
 
-TODO: Is it possible to have Idefile in project at all?
+*TODO: Is it possible to have Idefile in project at all?*
  * `/ide/go` is the `GOPATH`, that implies it will hold all projects, including dependencies of the current project. It has 3 subdirectories:
     - `bin` contains executable commands
     - `pkg` contains package objects

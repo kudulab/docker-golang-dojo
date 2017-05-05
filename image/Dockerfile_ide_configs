@@ -13,6 +13,8 @@ RUN apt-get update && \
   echo 'ide ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 COPY etc_ide.d/scripts/* /etc/ide.d/scripts/
+COPY sudoers /tmp/sudoers.new
+RUN visudo -c -f /tmp/sudoers.new && cp /tmp/sudoers.new /etc/sudoers
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["/bin/bash"]

@@ -1,10 +1,10 @@
 pipelines:
   docker-golang-ide:
-    group: stcdev
+    group: go
     label_template: "${git[:8]}"
     materials:
       git:
-        git: "git@git.ai-traders.com:stcdev/docker-golang-ide.git"
+        git: "git@git.ai-traders.com:gocd/docker-golang-ide.git"
         branch: master
         blacklist:
           - "**/*.gocd.yaml"
