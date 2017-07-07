@@ -1,2 +1,0 @@
-GOPATH=/ide/work
-PATH=/ide/work/bin:/usr/local/go/bin:$PATH
