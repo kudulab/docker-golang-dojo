@@ -5,9 +5,12 @@ COPY apt_01proxy /etc/apt/apt.conf.d/01_proxy
 # * ssh-client - to run git clone over ssh
 RUN apt-get update &&\
   DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
-  ssh-client build-essential
+  ssh-client build-essential bash-completion
 
 # ensure variables are set
 COPY profile /home/ide/.profile
 COPY bashrc /home/ide/.bashrc
 RUN chown ide:ide -R /home/ide
+
+# original file: https://github.com/skelterjohn/go-pkg-complete/blob/master/go-pkg-complete.bash.inc
+COPY bash-completion-go /etc/bash_completion.d/go
