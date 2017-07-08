@@ -1,3 +1,5 @@
+### 0.2.0 (2017-Jul-08)
+
 * facilities for interactive shell:
   * fix bash prompt to be colorful
   * add bash-completion

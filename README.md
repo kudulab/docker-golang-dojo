@@ -11,7 +11,7 @@ This image has installed:
 1. Install [IDE](https://github.com/ai-traders/ide)
 2. Provide an Idefile:
 ```
-IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/golang-ide:0.1.1"
+IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/golang-ide:0.2.0"
 ```
 
 By default, current directory in docker container is `/ide/work`.
@@ -64,18 +64,18 @@ There are 2 Dockerfiles:
 
 ### Lifecycle
 1. In a feature branch:
- * you make changes
- * and run tests:
-     * `./tasks build_cfg`
-     * `./tasks test_cfg`
-     * `./tasks build`
-     * `./tasks itest`
+   * you make changhttp://gogs.ai-traders.com:3333/gocd/docker-golang-ide/pulls/1/fileses
+   * and run tests:
+       * `./tasks build_cfg`
+       * `./tasks test_cfg`
+       * `./tasks build`
+       * `./tasks itest`
 1. You decide that your changes are ready and you:
- * merge into master branch
- * run locally:
-   * `./tasks set_version` to set version in CHANGELOG and chart version files to
-   the version from OVersion backend
-   * e.g. `./tasks set_version 1.2.3` to set version in CHANGELOG and chart version
-    files and in OVersion backend to 1.2.3
- * push to master onto private git server
+   * merge into master branch
+   * run locally:
+     * `./tasks set_version` to set version in CHANGELOG and chart version files to
+     the version from OVersion backend
+     * e.g. `./tasks set_version 1.2.3` to set version in CHANGELOG and chart version
+      files and in OVersion backend to 1.2.3
+   * push to master onto private git server
 1. CI server (GoCD) tests and releases.
