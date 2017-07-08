@@ -1,3 +1,8 @@
+* facilities for interactive shell:
+  * fix bash prompt to be colorful
+  * add bash-completion
+* base image: golang:1.7 -> golang:1.8.3
+
 ### 0.1.0 (4 May 2017)
 
 Initial release

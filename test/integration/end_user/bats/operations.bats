@@ -20,7 +20,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"go version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "go version go1.7"
+  assert_line --partial "go version go1.8"
   assert_equal "$status" 0
 }
 @test "GOPATH is set" {
