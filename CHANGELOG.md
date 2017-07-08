@@ -1,3 +1,8 @@
+### 0.2.1 (2017-Jul-08)
+
+* better bash-completion
+* make `build_cfg` task set version from code, not from OVersion backend
+
 ### 0.2.0 (2017-Jul-08)
 
 * facilities for interactive shell:

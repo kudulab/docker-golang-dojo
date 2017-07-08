@@ -12,5 +12,7 @@ COPY profile /home/ide/.profile
 COPY bashrc /home/ide/.bashrc
 RUN chown ide:ide -R /home/ide
 
-# original file: https://github.com/skelterjohn/go-pkg-complete/blob/master/go-pkg-complete.bash.inc
+# original file: https://github.com/kura/go-bash-completion/blob/master/etc/bash_completion.d/go
+# do not use: https://github.com/skelterjohn/go-pkg-complete/blob/master/go-pkg-complete.bash.inc
+# because it hides the bash-completion for files and directories.
 COPY bash-completion-go /etc/bash_completion.d/go
