@@ -12,6 +12,11 @@ COPY profile /home/ide/.profile
 COPY bashrc /home/ide/.bashrc
 RUN chown ide:ide -R /home/ide
 
+# install glide
+RUN wget -O /tmp/glide.tar.gz https://github.com/Masterminds/glide/releases/download/v0.12.3/glide-v0.12.3-linux-amd64.tar.gz &&\
+  tar -xf /tmp/glide.tar.gz && mv linux-amd64/glide /usr/bin/glide &&\
+  chmod 755 /usr/bin/glide && rm -rf linux-amd64
+
 # original file: https://github.com/kura/go-bash-completion/blob/master/etc/bash_completion.d/go
 # do not use: https://github.com/skelterjohn/go-pkg-complete/blob/master/go-pkg-complete.bash.inc
 # because it hides the bash-completion for files and directories.

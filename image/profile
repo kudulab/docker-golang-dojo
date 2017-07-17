@@ -1,7 +1,7 @@
 # Ensure that after shell login:
 # * some env variables are set
 # * if bash shell is run, source bashrc file (used for interactive shell)
-# * ide user is in /ide/work
+# * ide user is in "${ide_work}"
 
 GOPATH=/ide/work
 PATH=/ide/work/bin:/usr/local/go/bin:$PATH
@@ -17,4 +17,5 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-cd /ide/work
+# this variable is set by default IDE image scripts
+cd "${ide_work}"

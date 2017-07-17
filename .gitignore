@@ -1,14 +1,17 @@
-/test/integration/end_user/test_ide_work/*
+# build
+docker-ops
+releaser
 **/imagerc*
 **/*.html
 
-docker-ops
-releaser
-Idefile.to_be_tested_configs
-Idefile.to_be_tested
+# test
+Idefile.to_be_tested*
 Idefile.example
-MANIFEST
-*.egg
-*.egg-info
-*.pyc
+test_ide_work/*
+test_ide_work_multiproj/*
+vendor/
+bin/
+pkg/
+output/
 *.tar.gz
+*.xml

@@ -50,7 +50,7 @@ case "${command}" in
       echo "IDE_DOCKER_IMAGE=\"${tmp_image}\"" > ./Idefile.to_be_tested_configs
       echo "IDE_DOCKER_OPTIONS=\"--entrypoint=/bin/bash\"" >> ./Idefile.to_be_tested_configs
       echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.to_be_tested_configs
-      echo "IDE_WORK=$(pwd)/test/integration/configs/test_ide_work" >> Idefile.to_be_tested_configs
+      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.to_be_tested_configs
       time bats "$(pwd)/test/integration/configs/bats"
       exit $?
       ;;
@@ -64,9 +64,16 @@ case "${command}" in
       source_imagerc "${image_dir}"  "${imagerc_filename}"
       echo "Testing image: ${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}"
       # use the production ENTRYPOINT
-      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > ./Idefile.to_be_tested
-      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.to_be_tested
-      echo "IDE_WORK=$(pwd)/test/integration/end_user/test_ide_work" >> Idefile.to_be_tested
+      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > Idefile.to_be_tested
+      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> Idefile.to_be_tested
+      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.to_be_tested
+      echo "IDE_WORK_INNER=\"/ide/work/src/github.com/notexistentuser/myproject\"" >> Idefile.to_be_tested
+
+      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > Idefile.to_be_tested_multiproj
+      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> Idefile.to_be_tested_multiproj
+      # different test ide_work
+      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work_multiproj" >> Idefile.to_be_tested_multiproj
+      # no IDE_WORK_INNER, defaults to /ide/work
       time bats "$(pwd)/test/integration/end_user/bats"
       exit $?
       ;;

@@ -1,3 +1,6 @@
+* support 1 Idefile for 1 golang project, user must set IDE_WORK_INNER
+ in Idefile
+
 ### 0.2.1 (2017-Jul-08)
 
 * better bash-completion
