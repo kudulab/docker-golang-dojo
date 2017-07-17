@@ -1,3 +1,5 @@
+### 0.3.0 (2017-Jul-17)
+
 * support 1 Idefile for 1 golang project, user must set IDE_WORK_INNER
  in Idefile
 
