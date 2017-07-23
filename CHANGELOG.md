@@ -1,3 +1,4 @@
+### 0.3.2 (2017-Jul-23)
 ### 0.3.1 (2017-Jul-23)
 
 * `chown ide:ide /ide/work/src`, so that `go get -u` works 

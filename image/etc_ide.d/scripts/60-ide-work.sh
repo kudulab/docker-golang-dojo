@@ -60,4 +60,5 @@ fi
 
 (set -x; chown -R ${owner_username}:${owner_groupname} "${ide_work}/pkg"; )
 (set -x; chown -R ${owner_username}:${owner_groupname} "${ide_work}/bin"; )
-(set -x; mkdir -p "${ide_work}/src" && chown ${owner_username}:${owner_groupname} "${ide_work}/src"; )
+# notice that below we do not work on "${ide_work}/src"
+(set -x; mkdir -p "/ide/work/src" && chown ${owner_username}:${owner_groupname} "/ide/work/src"; )
