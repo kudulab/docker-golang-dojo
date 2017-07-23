@@ -1,3 +1,7 @@
+### 0.3.1 (2017-Jul-23)
+
+* `chown ide:ide /ide/work/src`, so that `go get -u` works 
+
 ### 0.3.0 (2017-Jul-17)
 
 * support 1 Idefile for 1 golang project, user must set IDE_WORK_INNER
