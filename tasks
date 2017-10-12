@@ -2,7 +2,7 @@
 
 set -e
 if [[ ! -f ./releaser ]];then
-  wget --quiet http://http.archive.ai-traders.com/releaser/1.0.0/releaser
+  wget --quiet http://http.archive.ai-traders.com/releaser/1.0.2/releaser
 fi
 source ./releaser
 if [[ ! -f ./docker-ops ]];then
@@ -80,7 +80,7 @@ case "${command}" in
       last_tag=$(get_last_git_tagged_version)
       echo "IDE_DOCKER_IMAGE=\"${image_name}:${last_tag}\"" > ./Idefile.example
       echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.example
-      echo "IDE_WORK=$(pwd)/test/integration/end_user/test_ide_work" >> Idefile.example
+      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.example
       exit $?
       ;;
   release)
