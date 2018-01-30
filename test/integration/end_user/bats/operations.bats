@@ -24,7 +24,7 @@ function cleanup {
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"go version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "go version go1.8"
+  assert_line --partial "go version go1.9"
   assert_equal "$status" 0
 }
 @test "GOPATH is set" {
@@ -78,16 +78,6 @@ function cleanup {
   assert_line --partial "Fetching github.com"
   assert_line --partial "PASS"
   refute_output --partial "FAIL"
-  assert_equal "$status" 0
-}
-@test "can run golang agent" {
-  run /bin/bash -c "ide --idefile Idefile.to_be_tested_multiproj \"git clone https://github.com/gocd-contrib/gocd-golang-agent.git src/github.com/gocd-contrib/gocd-golang-agent\""
-  assert_equal "$status" 0
-  
-  run /bin/bash -c "ide --idefile Idefile.to_be_tested_multiproj \"go run src/github.com/gocd-contrib/gocd-golang-agent/build/build.go\""
-  # this is printed on test failure
-  echo "output: $output"
-  assert_line --partial "Building Binary"
   assert_equal "$status" 0
 }
 @test "cleanup" {

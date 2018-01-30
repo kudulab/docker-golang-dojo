@@ -1,7 +1,13 @@
+### 0.3.3 (2018-Jan-30)
+
+* newer base image `golang:1.9.3-stretch`
+* dev: 1 Dockerfile instead of 2
+* dev: remove a test which builds golang go-agent, it is obsolete
+
 ### 0.3.2 (2017-Jul-23)
 ### 0.3.1 (2017-Jul-23)
 
-* `chown ide:ide /ide/work/src`, so that `go get -u` works 
+* `chown ide:ide /ide/work/src`, so that `go get -u` works
 
 ### 0.3.0 (2017-Jul-17)
 
