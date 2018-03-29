@@ -39,6 +39,12 @@ RUN wget -O /tmp/glide.tar.gz https://github.com/Masterminds/glide/releases/down
   tar -xf /tmp/glide.tar.gz && mv linux-amd64/glide /usr/bin/glide &&\
   chmod 755 /usr/bin/glide && rm -rf linux-amd64
 
+# install dep
+RUN cd /tmp &&\
+  wget https://github.com/golang/dep/releases/download/v0.4.1/dep-linux-amd64 &&\
+  mv dep-linux-amd64 /usr/bin/dep &&\
+  chmod +x /usr/bin/dep
+
 # original file: https://github.com/kura/go-bash-completion/blob/master/etc/bash_completion.d/go
 # do not use: https://github.com/skelterjohn/go-pkg-complete/blob/master/go-pkg-complete.bash.inc
 # because it hides the bash-completion for files and directories.

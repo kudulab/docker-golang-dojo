@@ -80,6 +80,14 @@ function cleanup {
   refute_output --partial "FAIL"
   assert_equal "$status" 0
 }
+@test "dep is installed" {
+  run /bin/bash -c "ide --idefile Idefile.to_be_tested \"dep version\""
+  # this is printed on test failure
+  echo "output: $output"
+  assert_line --partial "0.4.1"
+  assert_equal "$status" 0
+}
+
 @test "cleanup" {
   cleanup
 }

@@ -1,3 +1,7 @@
+### 0.3.4 (2018-Mar-29)
+
+* install https://github.com/golang/dep #12700
+
 ### 0.3.3 (2018-Jan-30)
 
 * newer base image `golang:1.9.3-stretch`
