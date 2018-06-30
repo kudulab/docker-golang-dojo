@@ -24,7 +24,7 @@ function cleanup {
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"go version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "go version go1.9"
+  assert_line --partial "go version go1.10"
   assert_equal "$status" 0
 }
 @test "GOPATH is set" {
@@ -47,9 +47,10 @@ function cleanup {
   run test -f test/integration/test_ide_work/bin/cli
   assert_equal "$status" 0
 
-  # this is the compiled library package file (was needed to build the cli command)
+  # this is the compiled library package file (was needed to build the cli command);
+  # since go 1.10, this file is not persisted
   run test -f test/integration/test_ide_work/pkg/linux_amd64/github.com/notexistentuser/myproject/clock.a
-  assert_equal "$status" 0
+  assert_equal "$status" 1
 }
 @test "go install result can be run" {
   # Again, no external dependencies are needed to run this package.

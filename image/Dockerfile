@@ -1,4 +1,4 @@
-FROM golang:1.9.3-stretch
+FROM golang:1.10.3-stretch
 
 COPY apt_01proxy /etc/apt/apt.conf.d/01_proxy
 ARG AIT_USE_APT_CACHE
@@ -14,7 +14,7 @@ RUN /bin/bash -c "if [[ ${AIT_USE_APT_CACHE} == false ]]; then rm /etc/apt/apt.c
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   sudo git ca-certificates wget && \
-  git clone --depth 1 -b 0.10.2 https://github.com/ai-traders/ide.git /tmp/ide_git && \
+  git clone --depth 1 -b 0.10.3 https://github.com/ai-traders/ide.git /tmp/ide_git && \
   /tmp/ide_git/ide_image_scripts/src/install.sh && \
   rm -r /tmp/ide_git && \
   echo 'ide ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
