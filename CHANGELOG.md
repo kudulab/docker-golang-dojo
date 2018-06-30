@@ -1,3 +1,5 @@
+### 0.3.5 (2018-Jun-30)
+
 ### 0.3.4 (2018-Mar-29)
 
 * install https://github.com/golang/dep #12700
