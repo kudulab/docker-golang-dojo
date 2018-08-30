@@ -1,4 +1,4 @@
-FROM golang:1.10.3-stretch
+FROM golang:1.11.0-stretch
 
 COPY apt_01proxy /etc/apt/apt.conf.d/01_proxy
 ARG AIT_USE_APT_CACHE
@@ -41,7 +41,7 @@ RUN wget -O /tmp/glide.tar.gz https://github.com/Masterminds/glide/releases/down
 
 # install dep
 RUN cd /tmp &&\
-  wget https://github.com/golang/dep/releases/download/v0.4.1/dep-linux-amd64 &&\
+  wget https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 &&\
   mv dep-linux-amd64 /usr/bin/dep &&\
   chmod +x /usr/bin/dep
 

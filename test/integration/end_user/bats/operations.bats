@@ -24,7 +24,7 @@ function cleanup {
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"go version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "go version go1.10"
+  assert_line --partial "go version go1.11"
   assert_equal "$status" 0
 }
 @test "GOPATH is set" {
@@ -85,7 +85,7 @@ function cleanup {
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"dep version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "0.4.1"
+  assert_line --partial "0.5.0"
   assert_equal "$status" 0
 }
 

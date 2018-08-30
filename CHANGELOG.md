@@ -1,3 +1,8 @@
+### 0.3.7 (2018-Aug-30)
+
+* golang 1.11 #13401
+* dep 0.5.0
+
 ### 0.3.6 (2018-Jul-01)
 
 * loosen ide configuration scripts: do not require `~/.ssh` directory
