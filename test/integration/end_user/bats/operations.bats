@@ -17,6 +17,7 @@ function cleanup {
   assert_line --partial "ide init finished"
   assert_line --partial "/ide/work/src/github.com/notexistentuser/myproject"
   assert_line --partial "golang-ide"
+  assert_line --partial "creating group: docker"
   refute_output --partial "root"
   assert_equal "$status" 0
 }
@@ -58,6 +59,20 @@ function cleanup {
   # this is printed on test failure
   echo "output: $output"
   assert_line --partial "Clock is: 11:00"
+  assert_equal "$status" 0
+}
+@test "ide user is added to group: docker" {
+  run /bin/bash -c "ide --idefile Idefile.to_be_tested \"id\""
+  # this is printed on test failure
+  echo "output: $output"
+  assert_line --partial "docker"
+  assert_equal "$status" 0
+}
+@test "can talk to docker daemon using api (because socket is mounted)" {
+  run /bin/bash -c "ide --idefile Idefile.to_be_tested \"curl --unix-socket /run/docker.sock http://localhost/containers/json\""
+  # this is printed on test failure
+  echo "output: $output"
+  assert_line --partial "ImageID"
   assert_equal "$status" 0
 }
 @test "cleanup" {

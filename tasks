@@ -56,6 +56,7 @@ case "${command}" in
       echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> Idefile.to_be_tested
       echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.to_be_tested
       echo "IDE_WORK_INNER=\"/ide/work/src/github.com/notexistentuser/myproject\"" >> Idefile.to_be_tested
+      echo "IDE_DOCKER_OPTIONS=\" -v /run/docker.sock:/run/docker.sock\"" >> Idefile.to_be_tested
 
       echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > Idefile.to_be_tested_multiproj
       echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> Idefile.to_be_tested_multiproj
@@ -70,6 +71,7 @@ case "${command}" in
       echo "IDE_DOCKER_IMAGE=\"${image_name}:${last_tag}\"" > ./Idefile.example
       echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.example
       echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.example
+      echo "IDE_DOCKER_OPTIONS=\" -v /run/docker.sock:/run/docker.sock\"" >> Idefile.example
       exit $?
       ;;
   release)

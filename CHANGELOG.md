@@ -1,3 +1,10 @@
+### 0.4.0 (2018-Sep-02)
+
+On container start up add group: docker, if docker socket is mounted as
+ `/run/docker.sock`. Thanks to that we have access to docker daemon
+ from docker host (through api). #12715 #13409
+Respect environment variable: DOCKER_SOCKET_FILE when creating group: docker.
+
 ### 0.3.7 (2018-Aug-30)
 
 * golang 1.11 #13401

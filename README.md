@@ -14,6 +14,8 @@ This image has installed:
     ```
     IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/golang-ide:0.3.0"
     IDE_WORK_INNER="/ide/work/src/myproject"
+    # optional
+    IDE_DOCKER_OPTIONS="-v /run/docker.sock:/run/docker.sock"
     ```
 
 By default, current directory in docker container is whatever you set to IDE_WORK_INNER,
