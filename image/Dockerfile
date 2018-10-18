@@ -54,6 +54,8 @@ COPY bash-completion-go /etc/bash_completion.d/go
 COPY profile /home/ide/.profile
 COPY bashrc /home/ide/.bashrc
 RUN chown ide:ide -R /home/ide
+# so that ide user can rebuild go native libraries
+RUN chown ide:ide -R /usr/local/go/
 
 COPY etc_ide.d/scripts/* /etc/ide.d/scripts/
 COPY sudoers /tmp/sudoers.new

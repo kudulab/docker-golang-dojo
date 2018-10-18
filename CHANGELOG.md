@@ -1,3 +1,7 @@
+### 0.4.1 (2018-Oct-18)
+
+* run once in docker image: `chown ide:ide -R /usr/local/go/`
+
 ### 0.4.0 (2018-Sep-02)
 
 On container start up add group: docker, if docker socket is mounted as
