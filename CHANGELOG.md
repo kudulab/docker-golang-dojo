@@ -1,6 +1,7 @@
 ### 0.4.1 (2018-Oct-18)
 
 * run once in docker image: `chown ide:ide -R /usr/local/go/`
+* command prompt with exit status and date
 
 ### 0.4.0 (2018-Sep-02)
 
