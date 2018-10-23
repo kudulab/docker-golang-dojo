@@ -1,3 +1,5 @@
+### 0.4.2 (2018-Oct-23)
+
 * install libseccomp-dev, because kubernetes needs it to compile
 * back to blue color in bash prompt
 
