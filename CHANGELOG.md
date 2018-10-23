@@ -1,3 +1,5 @@
+* install libseccomp-dev, because kubernetes needs it to compile
+
 ### 0.4.1 (2018-Oct-18)
 
 * run once in docker image: `chown ide:ide -R /usr/local/go/`

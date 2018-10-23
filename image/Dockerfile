@@ -29,7 +29,7 @@ RUN apt-get update && \
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF &&\
   apt-get update &&\
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-  apt-utils locales git unzip wget nano ssh-client build-essential bash-completion &&\
+  apt-utils locales git unzip wget nano ssh-client build-essential bash-completion libseccomp-dev &&\
   locale-gen en_US.UTF-8 && localedef -i en_US -f UTF-8 en_US.UTF-8 && update-locale &&\
   apt-get -y autoremove && apt-get -y autoclean && apt-get -y clean &&\
   rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
