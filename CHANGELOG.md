@@ -1,3 +1,7 @@
+### 0.4.3 (2018-Nov-05)
+
+* glide 0.13.2
+
 ### 0.4.2 (2018-Oct-23)
 
 * install libseccomp-dev, because kubernetes needs it to compile

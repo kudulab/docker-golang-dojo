@@ -35,7 +35,8 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
   rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
 
 # install glide
-RUN wget -O /tmp/glide.tar.gz https://github.com/Masterminds/glide/releases/download/v0.13.1/glide-v0.13.1-linux-amd64.tar.gz &&\
+ENV GLIDE_VERSION="0.13.2"
+RUN wget -O /tmp/glide.tar.gz https://github.com/Masterminds/glide/releases/download/v${GLIDE_VERSION}/glide-v${GLIDE_VERSION}-linux-amd64.tar.gz &&\
   tar -xf /tmp/glide.tar.gz && mv linux-amd64/glide /usr/bin/glide &&\
   chmod 755 /usr/bin/glide && rm -rf linux-amd64
 
