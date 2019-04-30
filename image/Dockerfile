@@ -59,7 +59,3 @@ RUN visudo -c -f /tmp/sudoers.new && cp /tmp/sudoers.new /etc/sudoers
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["/bin/bash"]
-
-ARG this_image_tag_arg
-ARG this_image_name_arg
-ENV this_image_tag=${this_image_tag_arg} this_image_name=${this_image_name_arg}

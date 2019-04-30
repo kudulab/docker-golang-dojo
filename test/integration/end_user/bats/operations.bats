@@ -16,7 +16,6 @@ function cleanup {
   echo "output: $output"
   assert_line --partial "dojo init finished"
   assert_line --partial "/dojo/work/src/github.com/notexistentuser/myproject"
-  assert_line --partial "golang-ide"
   assert_line --partial "creating group: docker"
   refute_output --partial "root"
   assert_equal "$status" 0
