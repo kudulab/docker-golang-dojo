@@ -70,10 +70,8 @@ case "${command}" in
       ;;
   release)
       verify_version_for_release
-      git_tag_from_oversion
-      old_version=$(get_next_oversion)
-      next_version=$(bump_patch_version "${old_version}")
-      set_next_oversion "${next_version}"
+      new_version="$(releaser::get_last_version_from_changelog)"
+      git tag "${new_version}" && git push origin "${new_version}"
       exit $?
       ;;
   publish)

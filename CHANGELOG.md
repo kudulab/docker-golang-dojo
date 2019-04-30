@@ -1,3 +1,7 @@
+### 0.5.0 (2019-Apr-30)
+
+* convert from ide docker image to dojo docker image #17589
+
 ### 0.4.3 (2018-Nov-05)
 
 * glide 0.13.2
