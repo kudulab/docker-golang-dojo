@@ -1,8 +1,5 @@
 FROM golang:1.11.0-stretch
 
-COPY apt_01proxy /etc/apt/apt.conf.d/01_proxy
-ARG AIT_USE_APT_CACHE
-RUN /bin/bash -c "if [[ ${AIT_USE_APT_CACHE} == false ]]; then rm /etc/apt/apt.conf.d/01_proxy; fi"
 
 ################################################################################
 # For ide

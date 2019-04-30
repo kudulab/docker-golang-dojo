@@ -33,18 +33,9 @@ case "${command}" in
       exit $?
       ;;
   build)
-      # Let's decide if we can use apt-cache.ai-traders.com
-      { ping -h 2>&1 | grep "command not found"; } && { sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends iputils-ping; }
-      if timeout 0.5 ping -c 1 apt-cache.ai-traders.com; then
-        echo "Will use apt-cache.ai-traders.com"
-        AIT_USE_APT_CACHE="true"
-      else
-        echo "Will not use apt-cache.ai-traders.com"
-        AIT_USE_APT_CACHE="false"
-      fi
       image_name_no_registry="${image_name/docker-registry.ai-traders.com\//}"
       production_image_tag=$(get_last_version_from_changelog "${changelog_file}")
-      docker_build_options="--build-arg this_image_name_arg=${image_name_no_registry} --build-arg this_image_tag_arg=${production_image_tag} --build-arg AIT_USE_APT_CACHE=${AIT_USE_APT_CACHE}"
+      docker_build_options="--build-arg this_image_name_arg=${image_name_no_registry} --build-arg this_image_tag_arg=${production_image_tag}"
       docker_build "./image" "imagerc" "${image_name}" "$2"
       exit $?
       ;;
