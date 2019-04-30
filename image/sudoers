@@ -9,7 +9,7 @@
 Defaults	env_reset
 Defaults	mail_badpass
 Defaults !secure_path
-# Defaults	secure_path="/ide/work/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+# Defaults	secure_path="/dojo/work/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # Host alias specification
 
@@ -26,4 +26,4 @@ root	ALL=(ALL:ALL) ALL
 # See sudoers(5) for more information on "#include" directives:
 
 #includedir /etc/sudoers.d
-ide ALL=(ALL) NOPASSWD: ALL
+dojo ALL=(ALL) NOPASSWD: ALL

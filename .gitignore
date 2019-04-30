@@ -5,10 +5,10 @@ releaser
 **/*.html
 
 # test
-Idefile.to_be_tested*
-Idefile.example
-test_ide_work/*
-test_ide_work_multiproj/*
+Dojofile.to_be_tested*
+Dojofile.example
+test_dojo_work/*
+test_dojo_work_multiproj/*
 vendor/
 bin/
 pkg/

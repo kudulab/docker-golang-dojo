@@ -1,23 +1,21 @@
 FROM golang:1.11.0-stretch
 
-
 ################################################################################
-# For ide
+# For Dojo
 ################################################################################
-# * entrypoint requires sudo
-# * git is needed to install ide image configs
-# * ca-certificated needed when running git clone to avoid this error:
-# fatal: unable to access 'https://github.com/ai-traders/ide.git/': Problem with the SSL CA cert (path? access rights?)
+# * sudo is needed in entrypoint
+# * git is needed to install dojo image configs
+# * ca-certificated is needed to run git clone from https site (e.g. https://github.com)
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   sudo git ca-certificates wget && \
-  git clone --depth 1 -b 0.10.3 https://github.com/ai-traders/ide.git /tmp/ide_git && \
-  /tmp/ide_git/ide_image_scripts/src/install.sh && \
-  rm -r /tmp/ide_git && \
-  echo 'ide ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+  git clone --depth 1 -b 0.4.1 https://github.com/ai-traders/dojo.git /tmp/dojo_git &&\
+  /tmp/dojo_git/image_scripts/src/install.sh && \
+  rm -r /tmp/dojo_git && \
+  echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 ################################################################################
-# Above ide
+# Above Dojo
 ################################################################################
 
 # Install common usage apt packages.
@@ -49,13 +47,13 @@ RUN cd /tmp &&\
 COPY bash-completion-go /etc/bash_completion.d/go
 
 # ensure variables are set
-COPY profile /home/ide/.profile
-COPY bashrc /home/ide/.bashrc
-RUN chown ide:ide -R /home/ide
-# so that ide user can rebuild go native libraries
-RUN chown ide:ide -R /usr/local/go/
+COPY profile /home/dojo/.profile
+COPY bashrc /home/dojo/.bashrc
+RUN chown dojo:dojo -R /home/dojo
+# so that dojo user can rebuild go native libraries
+RUN chown dojo:dojo -R /usr/local/go/
 
-COPY etc_ide.d/scripts/* /etc/ide.d/scripts/
+COPY etc_dojo.d/scripts/* /etc/dojo.d/scripts/
 COPY sudoers /tmp/sudoers.new
 RUN visudo -c -f /tmp/sudoers.new && cp /tmp/sudoers.new /etc/sudoers
 

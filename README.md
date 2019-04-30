@@ -1,25 +1,31 @@
 # docker-golang-ide
 
-An IDE docker image to build golang. Based on official golang image.
+A [Dojo](https://github.com/ai-traders/dojo) docker image to develop golang projects. Based on official golang image.
 
 ## Specification
 
 This image has installed:
  * golang
- * glide (~bundler for golang)
+ * glide (dependency manager for golang)
 
 ## Usage
-1. Install [IDE](https://github.com/ai-traders/ide)
-2. Provide an Idefile:
-    ```
-    IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/golang-ide:0.3.0"
-    IDE_WORK_INNER="/ide/work/src/myproject"
-    # optional
-    IDE_DOCKER_OPTIONS="-v /run/docker.sock:/run/docker.sock"
-    ```
+1. [Install docker](https://docs.docker.com/install/), if you haven't already.
+2. [Install Dojo](https://github.com/ai-traders/dojo#installation), it is a self-contained binary, so just place it somewhere on the `PATH`.
+On **Linux**:
+```bash
+DOJO_VERSION=0.4.2
+wget -O dojo https://github.com/ai-traders/dojo/releases/download/${DOJO_VERSION}/dojo_linux_amd64
+sudo mv dojo /usr/local/bin
+sudo chmod +x /usr/local/bin/dojo
+```
+3. Provide a Dojofile:
+```toml
+DOJO_DOCKER_IMAGE="docker-ai-traders.com/golang-ide:1.0.0"
+DOJO_WORK_INNER="/dojo/work/src/myproject"
+```
 
-By default, current directory in docker container is whatever you set to IDE_WORK_INNER,
- which defaults to `/ide/work`.
+By default, current directory in docker container is whatever you set to DOJO_WORK_INNER,
+ which defaults to `/dojo/work`.
 
 Example commands:
 ```
@@ -34,10 +40,12 @@ Golang has a particular workspace convention:
   * https://github.com/golang/go/wiki/GOPATH
   * https://github.com/golang/go/wiki/GithubCodeLayout
 
-In this IDE docker image we always set `GOPATH=/ide/work` and provide proper directory layout.
+This is not very compliant with [Dojo](https://github.com/ai-traders/dojo) conventions, because it expects to have single environment for multiple projects, while dojo is about having a specific environment for each project.
+
+This image works around it anyway. We always set `GOPATH=/dojo/work` and provide proper directory layout.
 
 You have 2 options here:
-  1. keep 1 Idefile for many golang projects. Your workspace will look like that:
+  1. keep 1 Dojofile for many golang projects. Your workspace will look like that:
   ```
   .git/
   bin/
@@ -51,11 +59,11 @@ You have 2 options here:
         another_go_file.go
     02-abc/
       abc.go
-  Idefile
+  Dojofile
   ```
-  Inside golang-ide container, your workspace is mounted into `/ide/work`.
-  No need to set anything unusual in Idefile.
-  2. keep 1 Idefile for 1 golang project. Your workspace will look like that:
+  Inside `golang-dojo` container, your workspace is mounted into `/dojo/work`.
+  No need to set anything unusual in Dojofile.
+  2. keep 1 Dojofile for 1 golang project. Your workspace will look like that:
   ```
   .git/
   package1/
@@ -63,18 +71,15 @@ You have 2 options here:
     some_go_file_test.go
   package2/
     another_go_file.go
-  Idefile
+  Dojofile
   ```
   You have to:
-   * set IDE_WORK_INNER in Idefile to something under `/ide/work/src`,
-    e.g. `/ide/work/src/github.com/user/hello`.
-   * use IDE >= 0.9.0. Since then, the ide_work variable inside a container is
-    the directory mounted as docker volume.
+   * set `DOJO_WORK_INNER` in Dojofile to something under `/dojo/work/src`,
+    e.g. `/dojo/work/src/github.com/user/hello`.
 
 ----
 
-Whichever option you choose, the directories `/ide/work/bin/` and `/ide/work/pkg/` will be provided. In result, the compiled files `*.a` are available on docker host too.
-
+Whichever option you choose, the directories `/dojo/work/bin/` and `/dojo/work/pkg/` will be provided. In result, the compiled files `*.a` are available on docker host too.
 
 ### Configuration
 
@@ -90,7 +95,7 @@ Whichever option you choose, the directories `/ide/work/bin/` and `/ide/work/pkg
 * Bash
 * Docker daemon
 * Bats
-* Ide
+* Dojo
 
 Need to install bats with:
 
@@ -101,26 +106,15 @@ git clone --depth 1 https://github.com/ztombol/bats-assert.git /opt/bats-assert
 /opt/bats/install.sh /usr/local
 ```
 
-### Tests
-There are 2 Dockerfiles:
-  * Dockerfile_ide_configs -- to test IDE configuration files and fail fast
-  * Dockerfile -- to build the main ide image, based on image built from
-   Dockerfile_ide_configs
-
 ### Lifecycle
 1. In a feature branch:
    * you make changes
    * and run tests:
-       * `./tasks build_cfg`
-       * `./tasks test_cfg`
        * `./tasks build`
        * `./tasks itest`
 1. You decide that your changes are ready and you:
    * merge into master branch
    * run locally:
-     * `./tasks set_version` to set version in CHANGELOG and chart version files to
-     the version from OVersion backend
-     * e.g. `./tasks set_version 1.2.3` to set version in CHANGELOG and chart version
-      files and in OVersion backend to 1.2.3
+     * e.g. `./tasks set_version 1.2.3` to set version in CHANGELOG to 1.2.3
    * push to master onto private git server
 1. CI server (GoCD) tests and releases.

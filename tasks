@@ -29,7 +29,11 @@ case "${command}" in
       exit $?
       ;;
   verify_version)
-      verify_version_for_release
+      version_from_changelog=$(get_last_version_from_changelog "${changelog_file}")
+      if git tag | grep "${version_from_changelog}"; then
+        log_error "The last version from changelog was already git tagged: ${version_from_changelog}"
+        exit 1
+      fi
       exit $?
       ;;
   build)
@@ -43,26 +47,26 @@ case "${command}" in
       source_imagerc "${image_dir}"  "${imagerc_filename}"
       echo "Testing image: ${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}"
       # use the production ENTRYPOINT
-      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > Idefile.to_be_tested
-      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> Idefile.to_be_tested
-      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.to_be_tested
-      echo "IDE_WORK_INNER=\"/ide/work/src/github.com/notexistentuser/myproject\"" >> Idefile.to_be_tested
-      echo "IDE_DOCKER_OPTIONS=\" -v /run/docker.sock:/run/docker.sock\"" >> Idefile.to_be_tested
+      echo "DOJO_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > Dojofile.to_be_tested
+      echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> Dojofile.to_be_tested
+      echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work" >> Dojofile.to_be_tested
+      echo "DOJO_WORK_INNER=\"/dojo/work/src/github.com/notexistentuser/myproject\"" >> Dojofile.to_be_tested
+      echo "DOJO_DOCKER_OPTIONS=\" -v /run/docker.sock:/run/docker.sock\"" >> Dojofile.to_be_tested
 
-      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > Idefile.to_be_tested_multiproj
-      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> Idefile.to_be_tested_multiproj
-      # different test ide_work
-      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work_multiproj" >> Idefile.to_be_tested_multiproj
-      # no IDE_WORK_INNER, defaults to /ide/work
+      echo "DOJO_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > Dojofile.to_be_tested_multiproj
+      echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> Dojofile.to_be_tested_multiproj
+      # different test dojo_work
+      echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work_multiproj" >> Dojofile.to_be_tested_multiproj
+      # no DOJO_WORK_INNER, defaults to /dojo/work
       time bats "$(pwd)/test/integration/end_user/bats"
       exit $?
       ;;
   example)
       last_tag=$(get_last_git_tagged_version)
-      echo "IDE_DOCKER_IMAGE=\"${image_name}:${last_tag}\"" > ./Idefile.example
-      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.example
-      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.example
-      echo "IDE_DOCKER_OPTIONS=\" -v /run/docker.sock:/run/docker.sock\"" >> Idefile.example
+      echo "DOJO_DOCKER_IMAGE=\"${image_name}:${last_tag}\"" > ./Dojofile.example
+      echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> ./Dojofile.example
+      echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work" >> Dojofile.example
+      echo "DOJO_DOCKER_OPTIONS=\" -v /run/docker.sock:/run/docker.sock\"" >> Dojofile.example
       exit $?
       ;;
   release)
