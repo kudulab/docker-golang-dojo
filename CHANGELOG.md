@@ -1,3 +1,10 @@
+### 1.0.0 (2019-May-01)
+
+Prepare for public usage:
+ * cleanup docker socket setup
+ * use public scripts from kudulab
+ * publish to dockerhub at `kudulab/golang-dojo`
+
 ### 0.5.0 (2019-Apr-30)
 
 * convert from ide docker image to dojo docker image #17589

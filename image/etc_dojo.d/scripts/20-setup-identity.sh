@@ -19,6 +19,8 @@ echo "StrictHostKeyChecking no
 UserKnownHostsFile /dev/null
 " > "${dojo_home}/.ssh/config"
 
+chown -R dojo:dojo ${dojo_home}/.ssh
+
 # not obligatory configuration file
 if [ -f "${dojo_identity}/.gitconfig" ]; then
   cp "${dojo_identity}/.gitconfig" "${dojo_home}"

@@ -1,11 +1,11 @@
-# docker-golang-ide
+# docker-golang-dojo
 
 A [Dojo](https://github.com/ai-traders/dojo) docker image to develop golang projects. Based on official golang image.
 
 ## Specification
 
 This image has installed:
- * golang
+ * golang `1.11.0`
  * glide (dependency manager for golang)
 
 ## Usage
@@ -24,7 +24,7 @@ DOJO_DOCKER_IMAGE="docker-ai-traders.com/golang-ide:1.0.0"
 DOJO_WORK_INNER="/dojo/work/src/myproject"
 ```
 
-By default, current directory in docker container is whatever you set to DOJO_WORK_INNER,
+By default, current directory in docker container is [DOJO_WORK_INNER](https://github.com/ai-traders/dojo#inner-working-directory),
  which defaults to `/dojo/work`.
 
 Example commands:
@@ -82,39 +82,26 @@ You have 2 options here:
 Whichever option you choose, the directories `/dojo/work/bin/` and `/dojo/work/pkg/` will be provided. In result, the compiled files `*.a` are available on docker host too.
 
 ### Configuration
+Those files are used inside the docker image:
 
-1. `~/.ssh/config` -- will be generated on docker container start
-2. `~/.ssh/id_rsa` -- it must exist locally, because it is a secret
- (but the whole `~/.ssh` will be copied)
+1. `~/.ssh/` -- is copied from host to dojo's home `~/.ssh`
+1. `~/.ssh/config` -- will be generated on docker container start. SSH client is configured to ignore known ssh hosts.
 2. `~/.gitconfig` -- if exists locally, will be copied
 3. `~/.profile` -- will be generated on docker container start, in
-   order to ensure current directory is `${ide_work}`.
+   order to ensure current directory is [DOJO_WORK_INNER](https://github.com/ai-traders/dojo#inner-working-directory).
+   
+## License
 
-## Development
-### Dependencies
-* Bash
-* Docker daemon
-* Bats
-* Dojo
+Copyright 2019 Ewa Czechowska, Tomasz Sętkowski
 
-Need to install bats with:
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-```sh
-git clone --depth 1 https://github.com/sstephenson/bats.git /opt/bats
-git clone --depth 1 https://github.com/ztombol/bats-support.git /opt/bats-support
-git clone --depth 1 https://github.com/ztombol/bats-assert.git /opt/bats-assert
-/opt/bats/install.sh /usr/local
-```
+   http://www.apache.org/licenses/LICENSE-2.0
 
-### Lifecycle
-1. In a feature branch:
-   * you make changes
-   * and run tests:
-       * `./tasks build`
-       * `./tasks itest`
-1. You decide that your changes are ready and you:
-   * merge into master branch
-   * run locally:
-     * e.g. `./tasks set_version 1.2.3` to set version in CHANGELOG to 1.2.3
-   * push to master onto private git server
-1. CI server (GoCD) tests and releases.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

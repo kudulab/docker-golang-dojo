@@ -1,14 +1,16 @@
+format_version: 3
 pipelines:
-  docker-golang-ide:
+  docker-golang-dojo:
     group: go
     label_template: "${git[:8]}"
     materials:
       git:
-        git: "git@git.ai-traders.com:gocd/docker-golang-ide.git"
-        branch: master
+        type: configrepo
         blacklist:
           - "**/*.gocd.yaml"
           - "**/*.md"
+    secure_variables:
+      VAULT_TOKEN: "AES:foEaAO3PeRHqhEEzJTmqDQ==:EgoBiIVNhLc/SR4gM2BSvBpPfXoy1NvCfrr68q2Wd/Tk39QdmReQQMpTBACHazdd"
     stages:
       - build:
           clean_workspace: true
@@ -24,12 +26,7 @@ pipelines:
                   command: /bin/bash
                   arguments:
                     - -c
-                    - ./tasks verify
-               - exec:
-                  command: /bin/bash
-                  arguments:
-                    - -c
-                    - ops_docker_push=true ./tasks build
+                    - ./tasks build
       - itest:
           clean_workspace: true
           jobs:
