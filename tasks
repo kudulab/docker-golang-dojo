@@ -28,7 +28,7 @@ case "${command}" in
       set_version_in_changelog "${changelog_file}" "${next_version}"
       exit $?
       ;;
-  verify_version)
+  verify)
       version_from_changelog=$(get_last_version_from_changelog "${changelog_file}")
       if git tag | grep "${version_from_changelog}"; then
         log_error "The last version from changelog was already git tagged: ${version_from_changelog}"
@@ -69,7 +69,7 @@ case "${command}" in
       exit $?
       ;;
   release)
-      verify_version_for_release
+      ./tasks verify
       new_version="$(releaser::get_last_version_from_changelog)"
       git tag "${new_version}" && git push origin "${new_version}"
       exit $?

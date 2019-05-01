@@ -24,7 +24,7 @@ pipelines:
                   command: /bin/bash
                   arguments:
                     - -c
-                    - ./tasks verify_version
+                    - ./tasks verify
                - exec:
                   command: /bin/bash
                   arguments:
