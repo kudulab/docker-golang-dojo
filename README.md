@@ -23,6 +23,7 @@ sudo chmod +x /usr/local/bin/dojo
 DOJO_DOCKER_IMAGE="docker-ai-traders.com/golang-ide:1.0.0"
 DOJO_WORK_INNER="/dojo/work/src/myproject"
 ```
+4. Run `dojo` to start container with golang environment.
 
 By default, current directory in docker container is [DOJO_WORK_INNER](https://github.com/ai-traders/dojo#inner-working-directory),
  which defaults to `/dojo/work`.
@@ -89,7 +90,7 @@ Those files are used inside the docker image:
 2. `~/.gitconfig` -- if exists locally, will be copied
 3. `~/.profile` -- will be generated on docker container start, in
    order to ensure current directory is [DOJO_WORK_INNER](https://github.com/ai-traders/dojo#inner-working-directory).
-   
+
 ## License
 
 Copyright 2019 Ewa Czechowska, Tomasz Sętkowski
