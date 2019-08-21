@@ -23,7 +23,7 @@ function cleanup {
   run /bin/bash -c "dojo -c Dojofile.to_be_tested \"go version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "go version go1.11"
+  assert_line --partial "go version go1.12"
   assert_equal "$status" 0
 }
 @test "GOPATH is set" {

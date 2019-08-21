@@ -1,3 +1,7 @@
+### 1.1.0 (2019-Aug-21)
+
+Upgraded golang to 1.12
+
 ### 1.0.0 (2019-May-01)
 
 Prepare for public usage:

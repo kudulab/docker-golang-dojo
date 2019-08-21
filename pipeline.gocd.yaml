@@ -10,13 +10,14 @@ pipelines:
           - "**/*.gocd.yaml"
           - "**/*.md"
     secure_variables:
-      VAULT_TOKEN: "AES:foEaAO3PeRHqhEEzJTmqDQ==:EgoBiIVNhLc/SR4gM2BSvBpPfXoy1NvCfrr68q2Wd/Tk39QdmReQQMpTBACHazdd"
+      VAULT_TOKEN: "AES:v039rHATdLeCbAUAONOgwg==:aR2Ga9my2s0YY8dpGSZf6DwC2y/tfMcUCMi4va01mw4="
     stages:
       - build:
           clean_workspace: true
           jobs:
             docker_image:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               artifacts:
                 - build:
                     source: image/imagerc
@@ -31,7 +32,8 @@ pipelines:
           clean_workspace: true
           jobs:
             end_user:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               tasks:
                 - fetch:
                     stage: build
@@ -48,7 +50,8 @@ pipelines:
           clean_workspace: true
           jobs:
             code:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               tasks:
                 - exec:
                     command: /bin/bash
@@ -59,7 +62,8 @@ pipelines:
           clean_workspace: true
           jobs:
             docker_image:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               tasks:
                 - fetch:
                     stage: build
