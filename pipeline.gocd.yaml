@@ -10,7 +10,7 @@ pipelines:
           - "**/*.gocd.yaml"
           - "**/*.md"
     secure_variables:
-      VAULT_TOKEN: "AES:v039rHATdLeCbAUAONOgwg==:aR2Ga9my2s0YY8dpGSZf6DwC2y/tfMcUCMi4va01mw4="
+      VAULT_TOKEN: "AES:XREMCUrgQyAR+CxDPBGtpw==:+fRMVS4z8/tE6xjmEowAOlnYmuimce1MU8uFTlhqv8k="
     stages:
       - build:
           clean_workspace: true

@@ -1,3 +1,7 @@
+### 1.1.1 (2020-Nov-12)
+
+Use Dojo image scripts version 0.10.2 so that this works on Mac using FUSE for file sharing
+
 ### 1.1.0 (2019-Aug-21)
 
 Upgraded golang to 1.12

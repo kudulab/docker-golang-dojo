@@ -9,7 +9,7 @@ FROM golang:1.12.9-stretch
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   sudo git ca-certificates wget && \
-  git clone --depth 1 -b 0.4.3 https://github.com/ai-traders/dojo.git /tmp/dojo_git &&\
+  git clone --depth 1 -b 0.10.2 https://github.com/kudulab/dojo.git /tmp/dojo_git &&\
   /tmp/dojo_git/image_scripts/src/install.sh && \
   rm -r /tmp/dojo_git && \
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
