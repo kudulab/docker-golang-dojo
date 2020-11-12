@@ -7,7 +7,7 @@ function cleanup {
 }
 
 
-@test "cleanup" {
+@test "cleanup before" {
   cleanup
 }
 @test "/usr/bin/entrypoint.sh returns 0" {
@@ -88,6 +88,6 @@ function cleanup {
   assert_equal "$status" 0
 }
 
-@test "cleanup" {
+@test "cleanup after" {
   cleanup
 }
