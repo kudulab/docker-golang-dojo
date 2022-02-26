@@ -1,3 +1,9 @@
+### 2.0.0 (2022-Feb-27)
+
+* Golang 1.17.7
+* No symlinks used to manage `GOPATH` directories
+* Glide and Dep are no longer installed, as Go Modules are the recommended way to manage Golang dependencies now
+
 ### 1.1.1 (2020-Nov-12)
 
 Use Dojo image scripts version 0.10.2 so that this works on Mac using FUSE for file sharing

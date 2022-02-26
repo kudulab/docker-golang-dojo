@@ -52,18 +52,20 @@ case "${command}" in
   itest)
       docker_ops::source_imagerc "${image_dir}"  "${imagerc_filename}"
       echo "Testing image: ${KUDU_DOCKER_IMAGE_URL}"
-      # use the production ENTRYPOINT
+
       echo "DOJO_DOCKER_IMAGE=\"${KUDU_DOCKER_IMAGE_URL}\"" > Dojofile.to_be_tested
       echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> Dojofile.to_be_tested
       echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work" >> Dojofile.to_be_tested
-      echo "DOJO_WORK_INNER=\"/dojo/work/src/github.com/notexistentuser/myproject\"" >> Dojofile.to_be_tested
 
-      echo "DOJO_DOCKER_IMAGE=\"${KUDU_DOCKER_IMAGE_URL}\"" > Dojofile.to_be_tested_multiproj
-      echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> Dojofile.to_be_tested_multiproj
-      # different test dojo_work
-      echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work_multiproj" >> Dojofile.to_be_tested_multiproj
-      # no DOJO_WORK_INNER, defaults to /dojo/work
       time bats "$(pwd)/test/integration/end_user/bats"
+      ;;
+  example)
+      docker_ops::ensure_pulled_image "${image_dir}" "${imagerc_filename}"
+      echo "Testing image: ${KUDU_DOCKER_IMAGE_URL}"
+      echo "DOJO_DOCKER_IMAGE=\"${KUDU_DOCKER_IMAGE_URL}\"" > ./Dojofile.example
+      echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> ./Dojofile.example
+      echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work/executable-no-dependencies" >> ./Dojofile.example
+      dojo -c ./Dojofile.example
       ;;
   release)
       ./tasks verify_version

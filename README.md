@@ -1,99 +1,91 @@
 # docker-golang-dojo
 
-A [Dojo](https://github.com/ai-traders/dojo) docker image to develop golang projects. Based on official golang image.
+A [Dojo](https://github.com/kudulab/dojo) Docker image to develop Golang projects. Based on an official Golang image.
 
-## Specification
-
-This image has installed:
- * golang `1.11.0`
- * glide (dependency manager for golang)
 
 ## Usage
-1. [Install docker](https://docs.docker.com/install/), if you haven't already.
-2. [Install Dojo](https://github.com/ai-traders/dojo#installation), it is a self-contained binary, so just place it somewhere on the `PATH`.
-On **Linux**:
-```bash
-DOJO_VERSION=0.4.2
-wget -O dojo https://github.com/ai-traders/dojo/releases/download/${DOJO_VERSION}/dojo_linux_amd64
-sudo mv dojo /usr/local/bin
-sudo chmod +x /usr/local/bin/dojo
-```
-3. Provide a Dojofile:
+1. [Install Dojo](https://github.com/kudulab/dojo#installation)
+2. Provide a Dojofile
 ```toml
-DOJO_DOCKER_IMAGE="docker-ai-traders.com/golang-ide:1.0.0"
-DOJO_WORK_INNER="/dojo/work/src/myproject"
-```
-4. Run `dojo` to start container with golang environment.
-
-By default, current directory in docker container is [DOJO_WORK_INNER](https://github.com/ai-traders/dojo#inner-working-directory),
- which defaults to `/dojo/work`.
-
-Example commands:
-```
-glide install
-go test
+DOJO_DOCKER_IMAGE="kudulab/golang-dojo:2.0.0"
 ```
 
-### Workspace
+  For experimentation purposes, you may want to create this file in our test project directory: `test/integration/test_dojo_work/executable-no-dependencies`
 
-Golang has a particular workspace convention:
+3. Run `dojo` while being in the same directory as the Dojofile. It will:
+  * docker pull a Docker image
+  * start a Docker container
+  * log you into the Docker container
+
+4. Example commands to run
+```
+/dojo/work$ go version
+/dojo/work$ go build -o bin/main
+/dojo/work$ ./bin/main
+Hello, world.
+```
+
+## GOPATH, workspaces and Dojo work directory
+
+### Dojo convention
+
+By convention, Dojo docker containers mount the current directory from host to a docker container under `/dojo/work`. This convention is followed here. Therefore, if your project is put under `/home/me/myproject`, then you should:
+* create a file `/home/me/myproject/Dojofile`
+* change your current directory to `/home/me/myproject`
+* invoke `dojo`
+
+The GOPATH variable is set to `/go` in the Docker container. Therefore, by default, after running `go install`, the binaries will be put under `/go/bin`. You may want to mount this directory from your Docker host or you may want to run `go build -o bin/main` instead. The latter option allows to choose the binaries directory.
+
+No symlinks are used.
+
+### Golang conventions
+
+Golang has particular workspace conventions:
   * https://golang.org/doc/code.html#Workspaces
+  * https://go.dev/doc/gopath_code
   * https://github.com/golang/go/wiki/GOPATH
   * https://github.com/golang/go/wiki/GithubCodeLayout
 
-This is not very compliant with [Dojo](https://github.com/ai-traders/dojo) conventions, because it expects to have single environment for multiple projects, while dojo is about having a specific environment for each project.
+To find the solution that fits you best, you may want to set `GOPATH`, `GOBIN`, `GOMODCACHE`, `PATH` to some custom values. Example commands to get you started:
+```
+export GOPATH=$HOME/go
+go env -w GOPATH=$GOPATH
+export GOBIN=${PWD}/bin
+go env -w GOBIN=${GOBIN}
+export PATH=$PATH:$GOPATH
+export PATH=$PATH:$GOBIN
+export GOMODCACHE=$PWD/pkg/mod
+go env -w GOMODCACHE=$GOMODCACHE
+```
 
-This image works around it anyway. We always set `GOPATH=/dojo/work` and provide proper directory layout.
+You may also want to experiment with:
+* [Dojo inner working directory](https://github.com/kudulab/dojo#inner-working-directory)
+* [Dojo outer working directory](https://github.com/kudulab/dojo#outer-working-directory)
 
-You have 2 options here:
-  1. keep 1 Dojofile for many golang projects. Your workspace will look like that:
-  ```
-  .git/
-  bin/
-  pkg/
-  src/
-    01-example/
-      package1/
-        some_go_file.go
-        some_go_file_test.go
-      package2/
-        another_go_file.go
-    02-abc/
-      abc.go
-  Dojofile
-  ```
-  Inside `golang-dojo` container, your workspace is mounted into `/dojo/work`.
-  No need to set anything unusual in Dojofile.
-  2. keep 1 Dojofile for 1 golang project. Your workspace will look like that:
-  ```
-  .git/
-  package1/
-    some_go_file.go
-    some_go_file_test.go
-  package2/
-    another_go_file.go
-  Dojofile
-  ```
-  You have to:
-   * set `DOJO_WORK_INNER` in Dojofile to something under `/dojo/work/src`,
-    e.g. `/dojo/work/src/github.com/user/hello`.
 
-----
+## Contributing
 
-Whichever option you choose, the directories `/dojo/work/bin/` and `/dojo/work/pkg/` will be provided. In result, the compiled files `*.a` are available on docker host too.
+Instructions how to update this project.
 
-### Configuration
-Those files are used inside the docker image:
+1. Create a new feature branch from the main branch: `master`
+2. Work on your changes in that feature branch. If you want, describe you changes in CHANGELOG.md
+3. Build your image locally to check that it succeeds: `./tasks build_local`
+4. Test your image: `./tasks itest`
+5. You may want to play with the Docker container:
+```
+./tasks example
+/dojo/work$ go build -o bin/main
+/dojo/work$ ./bin/main
+Hello, world.
+```
+6. If you are happy with the results, create a PR from your feature branch to the main branch
 
-1. `~/.ssh/` -- is copied from host to dojo's home `~/.ssh`
-1. `~/.ssh/config` -- will be generated on docker container start. SSH client is configured to ignore known ssh hosts.
-2. `~/.gitconfig` -- if exists locally, will be copied
-3. `~/.profile` -- will be generated on docker container start, in
-   order to ensure current directory is [DOJO_WORK_INNER](https://github.com/ai-traders/dojo#inner-working-directory).
+After this, someone will read your PR, merge it and ensure version bump (using `./tasks set_version`). CI pipeline will run to automatically build and test docker image, release the project and publish the docker image.
+
 
 ## License
 
-Copyright 2019 Ewa Czechowska, Tomasz Sętkowski
+Copyright 2019-2022 Ava Czechowska, Tom Setkowski
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
