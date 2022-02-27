@@ -8,14 +8,12 @@ workflows:
   docker-golang-dojo:
     jobs:
       - build
-      - verify_version
       - itest:
           requires:
             - build
       - release:
           requires:
             - itest
-            - verify_version
           filters:
             branches:
               only: master
@@ -39,13 +37,6 @@ jobs:
           root: ~/repo
           paths:
             - image/*imagerc
-
-  verify_version:
-    executor: platform
-    steps:
-      - setup
-      - run:
-          command: /bin/bash -c "./tasks verify_version"
 
   itest:
     executor: platform
