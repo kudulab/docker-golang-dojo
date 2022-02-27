@@ -102,7 +102,7 @@ case "${command}" in
       releaser::git_tag_from_changelog
       ;;
   publish)
-      secret_ops::docker_login
+      docker_login
       version=$(releaser::get_last_version_from_whole_changelog "${changelog_file}")
       docker_ops::ensure_pulled_image "${image_dir}" "${imagerc_filename}"
       docker_ops::retag_push "${image_dir}"  "${imagerc_filename}" "${image_name}" "${version}" "${image_registry}"
