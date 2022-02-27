@@ -34,7 +34,7 @@ By convention, Dojo docker containers mount the current directory from host to a
 * change your current directory to `/home/me/myproject`
 * invoke `dojo`
 
-The GOPATH variable is set to `/go` in the Docker container. Therefore, by default, after running `go install`, the binaries will be put under `/go/bin`. You may want to mount this directory from your Docker host or you may want to run `go build -o bin/main` instead. The latter option allows to choose the binaries directory.
+The GOPATH variable is set to `/home/dojo/go` in the Docker container. Therefore, by default, after running `go install`, the binaries will be put under `/home/dojo/go/bin`. You may want to mount this directory from your Docker host or you may want to run `go build -o bin/main` instead. The latter option allows to choose the binaries directory.
 
 No symlinks are used.
 

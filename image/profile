@@ -19,3 +19,8 @@ fi
 
 # this variable is set by default Dojo image scripts
 cd "${dojo_work}"
+
+# set up GOPATH
+export GOPATH=$HOME/go
+go env -w GOPATH=$GOPATH
+export PATH=$PATH:$GOPATH

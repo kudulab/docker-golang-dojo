@@ -28,7 +28,7 @@ function cleanup {
   run /bin/bash -c "dojo -c Dojofile.to_be_tested \"go env | grep GOPATH\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "GOPATH=\"/go\""
+  assert_line --partial "GOPATH=\"/home/dojo/go\""
   assert_equal "$status" 0
 }
 @test "a go executable can be compiled and run" {
