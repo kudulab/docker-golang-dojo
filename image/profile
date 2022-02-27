@@ -3,8 +3,8 @@
 # * if bash shell is run, source bashrc file (used for interactive shell)
 # * dojo user is in "${dojo_work}"
 
-GOPATH=/dojo/work
 PATH=/dojo/work/bin:/usr/local/go/bin:$PATH
+
 # Setting PS1 here has no effect, because, for interactive shell,
 # /etc/bash.bashrc is sourced and it overrides PS1. Thus we either need to
 # provide our own /etc/bash.bashrc or ~/.bashrc
