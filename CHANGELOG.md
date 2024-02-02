@@ -1,3 +1,9 @@
+### 2.0.1 (2024-Feb-02)
+
+* Golang 1.21.6
+* use base image with Debian 12 (bookworm)
+* ops: minor updates to the pipeline and remove the build_local task
+
 ### 2.0.0 (2022-Feb-27)
 
 * Golang 1.17.7

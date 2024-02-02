@@ -21,14 +21,14 @@ function cleanup {
   run /bin/bash -c "dojo -c Dojofile.to_be_tested \"go version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "go version go1.17"
+  assert_line --partial "go version go1.21"
   assert_equal "$status" 0
 }
 @test "GOPATH is set" {
   run /bin/bash -c "dojo -c Dojofile.to_be_tested \"go env | grep GOPATH\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "GOPATH=\"/home/dojo/go\""
+  assert_line --partial "GOPATH='/home/dojo/go'"
   assert_equal "$status" 0
 }
 @test "a go executable can be compiled and run" {
