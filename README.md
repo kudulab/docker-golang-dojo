@@ -62,15 +62,13 @@ You may also want to experiment with:
 * [Dojo inner working directory](https://github.com/kudulab/dojo#inner-working-directory)
 * [Dojo outer working directory](https://github.com/kudulab/dojo#outer-working-directory)
 
-
 ## Contributing
-
 Instructions how to update this project.
 
-1. Create a new feature branch from the main branch: `master`
-2. Work on your changes in that feature branch. If you want, describe you changes in CHANGELOG.md
-3. Build your image locally to check that it succeeds: `./tasks build_local`
-4. Test your image: `./tasks itest`
+1. Create a new feature branch from the main branch
+1. Work on your changes in that feature branch. If you want, describe you changes in [CHANGELOG.md](CHANGELOG.md)
+1. Build your image locally to check that it succeeds: `./tasks build`
+1. Test your image locally: `./tasks itest`. You may need to install the test framework - you can do it following [these instructions](https://github.com/kudulab/docker-terraform-dojo/blob/master/tasks#L66)
 5. You may want to play with the Docker container:
 ```
 ./tasks example
@@ -78,14 +76,11 @@ Instructions how to update this project.
 /dojo/work$ ./bin/main
 Hello, world.
 ```
-6. If you are happy with the results, create a PR from your feature branch to the main branch
-
-After this, someone will read your PR, merge it and ensure version bump (using `./tasks set_version`). CI pipeline will run to automatically build and test docker image, release the project and publish the docker image.
-
+1. If you are happy with the results, create a PR from your feature branch to master branch
 
 ## License
 
-Copyright 2019-2022 Ava Czechowska, Tom Setkowski
+Copyright 2019-2024 Ava Czechowska, Tom Setkowski
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -69,14 +69,9 @@ case "${command}" in
   verify_version)
       releaser::verify_release_ready
       ;;
-  build_local)
+  build)
       image_tag=$(git rev-parse HEAD)
       docker_ops::docker_build "${image_dir}" "${imagerc_filename}" "${image_name}" "${image_tag}" "${image_registry}"
-      ;;
-  build)
-      docker_login
-      ./tasks build_local
-      docker_ops::push "${image_dir}" "${imagerc_filename}"
       ;;
   itest)
       docker_ops::source_imagerc "${image_dir}"  "${imagerc_filename}"
