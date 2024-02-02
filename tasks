@@ -73,6 +73,10 @@ case "${command}" in
       image_tag=$(git rev-parse HEAD)
       docker_ops::docker_build "${image_dir}" "${imagerc_filename}" "${image_name}" "${image_tag}" "${image_registry}"
       ;;
+  push)
+      docker_login
+      docker_ops::push "${image_dir}" "${imagerc_filename}"
+      ;;
   itest)
       docker_ops::source_imagerc "${image_dir}"  "${imagerc_filename}"
       echo "Testing image: ${KUDU_DOCKER_IMAGE_URL}"
@@ -93,7 +97,6 @@ case "${command}" in
       ;;
   release)
       ./tasks verify_version
-      setup_github_credentials
       releaser::git_tag_from_changelog
       ;;
   publish)

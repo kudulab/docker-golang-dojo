@@ -1,4 +1,4 @@
-### 2.0.1 (2024-Feb-02)
+### 2.1.0 (2024-Feb-02)
 
 * Golang 1.21.6
 * use base image with Debian 12 (bookworm)
