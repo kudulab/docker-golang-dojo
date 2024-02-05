@@ -10,7 +10,9 @@ A [Dojo](https://github.com/kudulab/dojo) Docker image to develop Golang project
 DOJO_DOCKER_IMAGE="kudulab/golang-dojo:2.0.0"
 ```
 
-  For experimentation purposes, you may want to create this file in our test project directory: `test/integration/test_dojo_work/executable-no-dependencies`
+  Try to use one of the latest versions of the image as listed under [releases](https://github.com/kudulab/docker-golang-dojo/tags).
+
+  For experimentation purposes, you may want to create the Dojofile in the test project directory: `test/integration/test_dojo_work/executable-no-dependencies`. This provides you some initial golang files to experiment with.
 
 3. Run `dojo` while being in the same directory as the Dojofile. It will:
   * docker pull a Docker image

@@ -1,3 +1,8 @@
+### 2.1.1 (2024-Feb-06)
+
+* use Dojo image scripts 0.13.0
+* limit output from this image init scripts
+
 ### 2.1.0 (2024-Feb-02)
 
 * Golang 1.21.6
